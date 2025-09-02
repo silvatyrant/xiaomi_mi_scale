@@ -1,0 +1,59 @@
+nameOverride: ""
+fullnameOverride: ""
+namespace: ""  # Will default to release name if not set
+
+image:
+  repository: lolouk44/xiaomi-mi-scale
+  tag: latest
+  pullPolicy: IfNotPresent
+
+podSecurityContext: {}
+securityContext:
+  capabilities:
+    add:
+      - NET_ADMIN
+      - SYS_ADMIN
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+options:
+  # See https://github.com/lolouk44/xiaomi_mi_scale?tab=readme-ov-file#optionsjson for details
+  configJson: {}
+      # options:
+      #   HCI_DEV: "hci0"
+      #   BLUEPY_PASSIVE_SCAN: false
+      #   MISCALE_MAC: "00:00:00:00:00:00"
+      #   MQTT_PREFIX: "miscale"
+      #   MQTT_HOST: "homeassistant.local"
+      #   MQTT_USERNAME: "miscale-mqtt-user"
+      #   MQTT_PASSWORD: "miscale-mqtt-password"
+      #   MQTT_PORT: 1883
+      #   MQTT_RETAIN: true
+      #   MQTT_DISCOVERY: true
+      #   MQTT_DISCOVERY_PREFIX: "mqtt-discovery-prefix"
+      #   MQTT_TLS_CACERTS: "<path to CA certs>"
+      #   MQTT_TLS_INSECURE: true
+      #   DEBUG_LEVEL: "INFO"
+      #   USERS:
+      #     - NAME: "<name>"
+      #       SEX: "<male|female>"
+      #       GT: <lower weight bounds in kg>
+      #       LT: <upper weight bounds in kg>
+      #       HEIGHT: <height in cm>
+      #       DOB: "<date of birth YYYY-MM-DD>"
+  dbusSocket:
+    volume: "dbus-socket"
+    mountPath: "/run/dbus/system_bus_socket"
+    hostPath: "/var/run/dbus/system_bus_socket"
+
+configSecretName: "config"
